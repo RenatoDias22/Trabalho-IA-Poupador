@@ -89,6 +89,125 @@ public class Ladrao extends ProgramaLadrao {
 			if(max == andarEsquerda) {
 				return ESQUERDA;
 			}
+		} else {
+			if (x-1 < 0) {
+				double andarCima = (double) (Math.random() * 10) - (double) matrizMemoria[x][y-1];
+				double andarBaixo = (double) (Math.random() * 10) - (double) matrizMemoria[x][y+1];
+//				double andarEsquerda = (double) (Math.random() * 10) - (double) matrizMemoria[x-1][y];
+				double andarDireita = (double) (Math.random() * 10) - (double) matrizMemoria[x+1][y];
+				double parado = (double) (Math.random() * 10) - (double) matrizMemoria[x][y];
+				
+				double max = Math.max(andarCima,
+		                Math.max(andarBaixo,
+		                Math.max(andarDireita,parado)));
+				
+				if(numeroLadrao%4==0) {
+					System.out.println("Valor maximo: "+ max);
+					for(int i = 0; i < visaoIdentificao.length; i++) {
+						System.out.println("Visão: "+ visaoIdentificao[i]);
+					}
+				}
+				
+				if (max == andarCima) {
+					return CIMA;
+				}
+				if (max == andarBaixo) {
+					return BAIXO;
+				}
+				if(max == andarDireita) {
+					return DIREITA;
+				}
+			
+			} else {
+				if(x+1 > 29) {
+					double andarCima = (double) (Math.random() * 10) - (double) matrizMemoria[x][y-1];
+					double andarBaixo = (double) (Math.random() * 10) - (double) matrizMemoria[x][y+1];
+					double andarEsquerda = (double) (Math.random() * 10) - (double) matrizMemoria[x-1][y];
+//					double andarDireita = (double) (Math.random() * 10) - (double) matrizMemoria[x+1][y];
+					double parado = (double) (Math.random() * 10) - (double) matrizMemoria[x][y];
+					double max = Math.max(andarCima,
+			                Math.max(andarBaixo,
+			                Math.max(andarEsquerda,parado)));
+					
+					if(numeroLadrao%4==0) {
+						System.out.println("Valor maximo: "+ max);
+						for(int i = 0; i < visaoIdentificao.length; i++) {
+							System.out.println("Visão: "+ visaoIdentificao[i]);
+						}
+					}
+					
+					if (max == andarCima) {
+						return CIMA;
+					}
+					if (max == andarBaixo) {
+						return BAIXO;
+					}
+			
+					if(max == andarEsquerda) {
+						return ESQUERDA;
+					}
+				}
+				else {
+					if (y - 1 < 0) {
+//						double andarCima = (double) (Math.random() * 10) - (double) matrizMemoria[x][y-1];
+						double andarBaixo = (double) (Math.random() * 10) - (double) matrizMemoria[x][y+1];
+						double andarEsquerda = (double) (Math.random() * 10) - (double) matrizMemoria[x-1][y];
+						double andarDireita = (double) (Math.random() * 10) - (double) matrizMemoria[x+1][y];
+						double parado = (double) (Math.random() * 10) - (double) matrizMemoria[x][y];
+						double max = Math.max(andarBaixo,
+				                Math.max(andarEsquerda,
+				                Math.max(andarDireita,parado)));
+						
+						if(numeroLadrao%4==0) {
+							System.out.println("Valor maximo: "+ max);
+							for(int i = 0; i < visaoIdentificao.length; i++) {
+								System.out.println("Visão: "+ visaoIdentificao[i]);
+							}
+						}
+					
+						if (max == andarBaixo) {
+							return BAIXO;
+						}
+						if(max == andarDireita) {
+							return DIREITA;
+						}
+						if(max == andarEsquerda) {
+							return ESQUERDA;
+						}
+					}else {
+						if(y+1 > 29) {
+							double andarCima = (double) (Math.random() * 10) - (double) matrizMemoria[x][y-1];
+//							double andarBaixo = (double) (Math.random() * 10) - (double) matrizMemoria[x][y+1];
+							double andarEsquerda = (double) (Math.random() * 10) - (double) matrizMemoria[x-1][y];
+							double andarDireita = (double) (Math.random() * 10) - (double) matrizMemoria[x+1][y];
+							double parado = (double) (Math.random() * 10) - (double) matrizMemoria[x][y];
+							
+							double max = Math.max(andarCima,
+					                Math.max(andarEsquerda,
+					                Math.max(andarDireita,parado)));
+							
+							if(numeroLadrao%4==0) {
+								System.out.println("Valor maximo: "+ max);
+								for(int i = 0; i < visaoIdentificao.length; i++) {
+									System.out.println("Visão: "+ visaoIdentificao[i]);
+								}
+							}
+							
+							if (max == andarCima) {
+								return CIMA;
+							}
+						
+							if(max == andarDireita) {
+								return DIREITA;
+							}
+							if(max == andarEsquerda) {
+								return ESQUERDA;
+							}
+						}
+					}
+				}
+			}
+			
 		}
 		return PARADO;
 		
@@ -126,8 +245,7 @@ public class Ladrao extends ProgramaLadrao {
         v[12] = getCelula(x+1,y);
         plotarNoMapa(x+2, y, visaoIdentificao[13]); 
         v[13] = getCelula(x+2,y);
-         
-//        return v;
+       
     }
      
      
