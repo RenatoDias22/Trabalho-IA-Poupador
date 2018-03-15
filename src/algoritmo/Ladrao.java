@@ -35,11 +35,14 @@ public class Ladrao extends ProgramaLadrao {
 		}
 		
 		matrizMemoria[(int)sensor.getPosicao().getX()][(int) sensor.getPosicao().getY()]++;
-		
+//		System.out.println("Posição x e y: " + sensor.getPosicao().getX() + " " + sensor.getPosicao().getY() );
 		int andou = escolherCasaParaAndar();
 		
-		if(numeroLadrao%4==3) {
+		if(numeroLadrao%4==0) {
 			imprimirMatrizMemoria();
+			System.out.println("Posição x e y: " + sensor.getPosicao().getX() + " " + sensor.getPosicao().getY() );
+			System.out.println("Valor matriz " + matrizMemoria[(int)sensor.getPosicao().getX()][(int) sensor.getPosicao().getY()]);
+			
 		}
 		numeroLadrao++;
 		return andou;
@@ -47,8 +50,6 @@ public class Ladrao extends ProgramaLadrao {
 	
 	public int escolherCasaParaAndar() {
 		
-		
-//		int[] visao = sensor.getVisaoIdentificacao();
 		visaoIdentificao = sensor.getVisaoIdentificacao();
 		
 		combinarVisaoComMapa();
@@ -58,23 +59,21 @@ public class Ladrao extends ProgramaLadrao {
 		
 		if(x-1 >= 0 && y-1 >= 0 && x+1 < 30 && y+1 < 30) {
 			
-//			System.out.printf("x-1: %d | x+1: %d | y-1: %d| y+1: %d", x-1, x+1 , y-1, y+1);
-			
-			double andarCima = (double) (Math.random() * 10) - matrizMemoria[(int)sensor.getPosicao().getX()][(int) sensor.getPosicao().getY()-1];
-			double andarBaixo = (double) (Math.random() * 10) - matrizMemoria[(int)sensor.getPosicao().getX()][(int) sensor.getPosicao().getY()+1];
-			double andarEsquerda = (double) (Math.random() * 10) - matrizMemoria[(int)sensor.getPosicao().getX()-1][(int) sensor.getPosicao().getY()];
-			double andarDireita = (double) (Math.random() * 10) - matrizMemoria[(int)sensor.getPosicao().getX()+1][(int) sensor.getPosicao().getY()];
-			double parado = (double) (Math.random() * 10) - matrizMemoria[(int)sensor.getPosicao().getX()][(int) sensor.getPosicao().getY()];
+			double andarCima = (double) (Math.random() * 10) - (double) matrizMemoria[x][y-1];
+			double andarBaixo = (double) (Math.random() * 10) - (double) matrizMemoria[x][y+1];
+			double andarEsquerda = (double) (Math.random() * 10) - (double) matrizMemoria[x-1][y];
+			double andarDireita = (double) (Math.random() * 10) - (double) matrizMemoria[x+1][y];
+			double parado = (double) (Math.random() * 10) - (double) matrizMemoria[x][y];
 			
 			double max = Math.max(andarCima,
 	                Math.max(andarBaixo,
 	                Math.max(andarEsquerda,
 	                Math.max(andarDireita,parado))));
 			
-			if(numeroLadrao%4==3) {
+			if(numeroLadrao%4==0) {
 				System.out.println("Valor maximo: "+ max);
 				for(int i = 0; i < visaoIdentificao.length; i++) {
-					System.out.println("Valor maximo: "+ visaoIdentificao[i]);
+					System.out.println("Visão: "+ visaoIdentificao[i]);
 				}
 			}
 			
@@ -99,8 +98,6 @@ public class Ladrao extends ProgramaLadrao {
         
         int x = (int) sensor.getPosicao().getX();
         int y = (int) sensor.getPosicao().getX();
-         
-        matrizMemoria[x][y] = 0;
  
         double v[] = new double[24];
          
@@ -148,7 +145,7 @@ public class Ladrao extends ProgramaLadrao {
                    valor == VISAO_PAREDE || 
                    valor ==  VISAO_PASTILHA || 
                    valor == VISAO_BANCO ){
-                    matrizMemoria[y][x] = 99999;
+                    matrizMemoria[y][x] = 9999999;
                 }
             }
         }
